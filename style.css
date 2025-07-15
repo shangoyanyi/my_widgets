@@ -279,18 +279,7 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
-#to-hash-btn {
-    background-color: #3b82f6; /* Blue-500 */
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
-}
 
-#to-hash-btn:hover {
-    background-color: #2563eb; /* Blue-600 */
-}
 
 /* MD Converter Widget Styles */
 .md-converter-container {
