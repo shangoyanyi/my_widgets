@@ -24,8 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const hashInput = document.getElementById('hash-input');
     const hashAlgorithmSelect = document.getElementById('hash-algorithm');
     const toHashBtn = document.getElementById('to-hash-btn');
-    const toPlaintextBtn = document.getElementById('to-plaintext-btn');
     const hashStatus = document.getElementById('hash-status');
+
+    // MD Converter elements
+    const mdInput = document.getElementById('md-input');
+    const mdOutput = document.getElementById('md-output');
+    let isSyncing = false;
 
     const weatherAPIKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
     const PDF_CONVERTER_API_URL = 'https://cpe-pdf-reader.onrender.com/upload';
@@ -174,10 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 pdfStatus.textContent = '轉換成功！檔案已下載。';
             } else {
                 const errorText = await response.text();
-                pdfStatus.textContent = `轉換失敗：${errorText || response.statusText}`; 
+                pdfStatus.textContent = `轉換失敗：${errorText || response.statusText}`;
             }
         } catch (error) {
-            pdfStatus.textContent = `發生錯誤：${error.message}`; 
+            pdfStatus.textContent = `發生錯誤：${error.message}`;
         } finally {
             pdfConvertBtn.disabled = false;
         }
@@ -220,6 +224,44 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             hashStatus.textContent = 'Please enter plaintext to convert.';
         }
+    });
+
+    // MD Converter Logic
+    const syncScroll = (source, target) => {
+        if (isSyncing) return;
+        isSyncing = true;
+
+        const { scrollTop, scrollHeight, clientHeight } = source;
+        const scrollableHeight = scrollHeight - clientHeight;
+
+        // Check for boundary conditions to prevent floating point errors
+        if (scrollTop === 0) {
+            target.scrollTop = 0;
+        } else if (scrollTop >= scrollableHeight - 1) { // Use a small tolerance
+            target.scrollTop = target.scrollHeight - target.clientHeight;
+        } else {
+            const scrollPercentage = scrollTop / scrollableHeight;
+            target.scrollTop = scrollPercentage * (target.scrollHeight - target.clientHeight);
+        }
+
+        // Use requestAnimationFrame for smoother syncing and to avoid race conditions
+        requestAnimationFrame(() => {
+            isSyncing = false;
+        });
+    };
+
+    mdInput.addEventListener('input', () => {
+        const rawHTML = marked.parse(mdInput.value);
+        const sanitizedHTML = DOMPurify.sanitize(rawHTML);
+        mdOutput.innerHTML = sanitizedHTML;
+    });
+
+    mdInput.addEventListener('scroll', () => {
+        syncScroll(mdInput, mdOutput);
+    });
+
+    mdOutput.addEventListener('scroll', () => {
+        syncScroll(mdOutput, mdInput);
     });
 
     // Attach event listeners

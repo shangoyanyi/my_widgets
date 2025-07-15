@@ -259,3 +259,142 @@ body {
     color: rgba(255, 255, 255, 0.6);
     word-break: break-all;
 }
+
+/* Hash Converter Widget Styles */
+#hash-algorithm,
+#plaintext-input,
+#hash-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#hash-algorithm:focus,
+#plaintext-input:focus,
+#hash-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+#to-hash-btn {
+    background-color: #3b82f6; /* Blue-500 */
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+#to-hash-btn:hover {
+    background-color: #2563eb; /* Blue-600 */
+}
+
+/* MD Converter Widget Styles */
+.md-converter-container {
+    display: flex;
+    height: 70vh;
+}
+
+.md-input, .md-output {
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 0.5rem;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.md-input {
+    resize: none;
+    margin-right: 1rem;
+}
+
+.md-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.md-output {
+    text-align: left;
+}
+
+.md-output h1, .md-output h2, .md-output h3, .md-output h4, .md-output h5, .md-output h6 {
+    color: white;
+    font-weight: bold;
+}
+
+.md-output h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.md-output h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.md-output p {
+    margin-bottom: 1em;
+}
+
+.md-output a {
+    color: #60a5fa; /* blue-400 */
+    text-decoration: underline;
+}
+
+.md-output code {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+}
+
+.md-output pre {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+}
+
+.md-output blockquote {
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+    padding-left: 1em;
+    margin-left: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.md-output ul, .md-output ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+.md-output li {
+    margin-bottom: 0.5em;
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
