@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>My Widgets</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/heroicons@1.0.6/dist/heroicons.js"></script>
@@ -16,15 +16,16 @@
             <li class="mb-4"><a href="#calculator-widget" class="nav-link">Calculator</a></li>
             <li class="mb-4"><a href="#notes-widget" class="nav-link">Notes</a></li>
             <li class="mb-4"><a href="#pdf-converter-widget" class="nav-link">PDF Converter</a></li>
+            <li class="mb-4"><a href="#hash-converter-widget" class="nav-link">Hash Converter</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         <div id="weather-widget" class="widget active">
             <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Simple Weather</h1>
+                <h1 class="text-4xl font-bold text-white mb-4">Weather</h1>
                 <div class="mb-8">
-                    <select id="location-select" class="location-selector bg-white border border-gray-300 rounded-md py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <select id="location-select" class="location-selector border border-gray-300 rounded-md py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-gray-500">
                         <option value="Taipei">台北</option>
                         <option value="NewTaipei">新北</option>
                         <option value="Taoyuan">桃園</option>
@@ -77,6 +78,34 @@
                 </div>
             </div>
         </div>
+
+        <div id="hash-converter-widget" class="widget hidden">
+            <div class="container mx-auto p-4 text-center">
+                <h1 class="text-4xl font-bold text-white mb-4">Hash Converter</h1>
+                <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+                    <div class="mb-4">
+                        <label for="hash-algorithm" class="block text-white text-sm font-bold mb-2">Algorithm</label>
+                        <select id="hash-algorithm" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="SHA-256">SHA-256</option>
+                            <option value="SHA-512">SHA-512</option>
+                            <option value="MD5">MD5</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="plaintext-input" class="block text-white text-sm font-bold mb-2">Plaintext</label>
+                        <textarea id="plaintext-input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="hash-input" class="block text-white text-sm font-bold mb-2">Hash</label>
+                        <textarea id="hash-input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4"></textarea>
+                    </div>
+                    <div class="flex justify-center">
+                        <button id="to-hash-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Convert</button>
+                    </div>
+                    <p id="hash-status" class="text-sm text-gray-200 mt-2 h-4"></p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="overlay" class="overlay"></div>
@@ -96,6 +125,10 @@
         <a href="#pdf-converter-widget" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
             <span>PDF</span>
+        </a>
+        <a href="#hash-converter-widget" class="bottom-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" /></svg>
+            <span>Hash</span>
         </a>
         <button id="more-button" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" /></svg>

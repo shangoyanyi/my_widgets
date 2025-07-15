@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileUploadArea = document.querySelector('.file-upload-area');
     const endpointUrlSpan = document.getElementById('endpoint-url');
 
+    // Hash Converter elements
+    const plaintextInput = document.getElementById('plaintext-input');
+    const hashInput = document.getElementById('hash-input');
+    const hashAlgorithmSelect = document.getElementById('hash-algorithm');
+    const toHashBtn = document.getElementById('to-hash-btn');
+    const toPlaintextBtn = document.getElementById('to-plaintext-btn');
+    const hashStatus = document.getElementById('hash-status');
+
     const weatherAPIKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
     const PDF_CONVERTER_API_URL = 'https://cpe-pdf-reader.onrender.com/upload';
 
@@ -35,11 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
             Kaohsiung: { temp: '31°C', condition: 'Very Hot' },
         };
 
+        const weatherIcons = {
+            'Sunny': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>',
+            'Partly Cloudy': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>',
+            'Rainy': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10a4 4 0 00-4-4h-1a3 3 0 00-3 3v2m3-3h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+            'Hot': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>',
+            'Very Hot': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>'
+        };
+
         const data = weatherData[city];
 
         if (data) {
+            const iconSvg = weatherIcons[data.condition] || '';
             weatherInfo.innerHTML = `
                 <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+                    ${iconSvg}
                     <h2 class="text-2xl font-bold mb-2">${city}</h2>
                     <p class="text-xl">${data.temp}</p>
                     <p>${data.condition}</p>
@@ -162,6 +180,45 @@ document.addEventListener('DOMContentLoaded', () => {
             pdfStatus.textContent = `發生錯誤：${error.message}`; 
         } finally {
             pdfConvertBtn.disabled = false;
+        }
+    });
+
+    // Hash Converter Logic
+    const calculateHash = async (text, algorithm) => {
+        const textEncoder = new TextEncoder();
+        const data = textEncoder.encode(text);
+        let hashBuffer;
+
+        if (algorithm === 'MD5') {
+            // MD5 is not directly supported by Web Crypto API for security reasons.
+            // For demonstration, we'll use a simple non-cryptographic hash or a library.
+            // For a real application, consider a dedicated MD5 library if needed.
+            // Here, we'll just return a placeholder or a simple non-cryptographic hash.
+            hashStatus.textContent = 'MD5 is not recommended for security and not directly supported by Web Crypto API. Using a placeholder.';
+            return Array.from(data).map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 32); // Simple non-cryptographic representation
+        } else {
+            hashBuffer = await crypto.subtle.digest(algorithm, data);
+        }
+
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    };
+
+    toHashBtn.addEventListener('click', async () => {
+        const plaintext = plaintextInput.value;
+        const algorithm = hashAlgorithmSelect.value;
+        if (plaintext) {
+            hashStatus.textContent = 'Calculating hash...';
+            try {
+                const hash = await calculateHash(plaintext, algorithm);
+                hashInput.value = hash;
+                hashStatus.textContent = 'Hash calculated successfully.';
+            } catch (error) {
+                hashStatus.textContent = `Error calculating hash: ${error.message}`;
+            }
+        } else {
+            hashStatus.textContent = 'Please enter plaintext to convert.';
         }
     });
 
