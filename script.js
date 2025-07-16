@@ -31,44 +31,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const mdOutput = document.getElementById('md-output');
     let isSyncing = false;
 
-    const weatherAPIKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
     const PDF_CONVERTER_API_URL = 'https://cpe-pdf-reader.onrender.com/upload';
 
     // Display endpoint URL
     endpointUrlSpan.textContent = PDF_CONVERTER_API_URL;
 
-    const fetchWeather = (city) => {
-        const weatherData = {
-            Taipei: { temp: '28°C', condition: 'Sunny' },
-            NewTaipei: { temp: '27°C', condition: 'Partly Cloudy' },
-            Taoyuan: { temp: '26°C', condition: 'Rainy' },
-            Taichung: { temp: '29°C', condition: 'Sunny' },
-            Tainan: { temp: '30°C', condition: 'Hot' },
-            Kaohsiung: { temp: '31°C', condition: 'Very Hot' },
-        };
+    const fetchWeather = async (locationName) => {
+        // CWA Open Data API endpoint for general weather forecast
+        const CWA_API_URL = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=rdec-key-123-45678-011121314`;
+        
+        weatherInfo.innerHTML = `
+            <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+                <p>Loading weather data...</p>
+            </div>
+        `;
 
-        const weatherIcons = {
-            'Sunny': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>',
-            'Partly Cloudy': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>',
-            'Rainy': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10a4 4 0 00-4-4h-1a3 3 0 00-3 3v2m3-3h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
-            'Hot': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>',
-            'Very Hot': '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12h1m15.325-7.757l-.707.707M5.382 18.618l-.707.707M18.618 5.382l-.707-.707M5.382 5.382l-.707-.707M12 18a6 6 0 100-12 6 6 0 000 12z" /></svg>'
-        };
+        try {
+            const response = await fetch(CWA_API_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
 
-        const data = weatherData[city];
+            if (!data.records || !data.records.location) {
+                throw new Error('Invalid API response format');
+            }
 
-        if (data) {
-            const iconSvg = weatherIcons[data.condition] || '';
-            weatherInfo.innerHTML = `
-                <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                    ${iconSvg}
-                    <h2 class="text-2xl font-bold mb-2">${city}</h2>
-                    <p class="text-xl">${data.temp}</p>
-                    <p>${data.condition}</p>
-                </div>
-            `;
-        } else {
-            weatherInfo.innerHTML = `<p>Could not fetch weather for ${city}.</p>`;
+            const locationData = data.records.location.find(loc => loc.locationName === locationName);
+
+            if (locationData) {
+                const weatherElement = locationData.weatherElement;
+                const minT = weatherElement.find(el => el.elementName === 'MinT').time[0].parameter.parameterName;
+                const maxT = weatherElement.find(el => el.elementName === 'MaxT').time[0].parameter.parameterName;
+                const temperature = `${minT} - ${maxT}`;
+                const condition = weatherElement.find(el => el.elementName === 'Wx').time[0].parameter.parameterName;
+                const pop = weatherElement.find(el => el.elementName === 'PoP').time[0].parameter.parameterName;
+
+                const today = new Date();
+                const month = (today.getMonth() + 1).toString().padStart(2, '0');
+                const day = today.getDate().toString().padStart(2, '0');
+                const formattedDate = `${month}/${day}`;
+
+                weatherInfo.innerHTML = `
+                    <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+                        <p class="text-5xl font-bold mb-2">${formattedDate}</p>
+                        <h2 class="text-2xl font-bold mb-2">${locationName}</h2>
+                        <p>${condition}</p>
+                        <p class="text-xl">${temperature}°C</p>
+                        <p class="mt-2">降雨機率 ${pop}%</p>
+                    </div>
+                `;
+            } else {
+                throw new Error(`Could not find weather data for ${locationName}`);
+            }
+        } catch (error) {
+            console.error('Fetch weather error:', error);
+            weatherInfo.innerHTML = `<p>Could not fetch weather for ${locationName}.</p>`;
         }
     };
 
