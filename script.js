@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mdOutput = document.getElementById('md-output');
     let isSyncing = false;
 
-    const PDF_CONVERTER_API_URL = 'https://cpe-pdf-reader.onrender.com/upload';
+    // const PDF_CONVERTER_API_URL = 'https://cpe-pdf-reader.onrender.com/upload';
+    const PDF_CONVERTER_API_URL = 'https://pdftablereaderpy.onrender.com/upload';
 
     // Display endpoint URL
     endpointUrlSpan.textContent = PDF_CONVERTER_API_URL;
