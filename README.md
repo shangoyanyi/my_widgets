@@ -1,11 +1,12 @@
 # my_widgets
 
-A collection of useful widgets.
+A collection of useful widgets for developers and power users.
 
-## Widgets
+## Features
 
-*   **Weather**: Displays the current weather for a selected city.
-*   **Calculator**: A simple calculator.
-*   **MD Converter**: A real-time Markdown to HTML converter.
-*   **PDF Converter**: Converts PDF files to Excel.
-*   **Hash Converter**: Converts text to a hash value using various algorithms.
+This project provides a suite of handy, browser-based tools accessible through a clean and modern interface.
+
+*   **Weather**: Displays the current weather forecast for major cities in Taiwan.
+*   **MD Converter**: A real-time, side-by-side Markdown to HTML converter with scroll-sync.
+*   **Hash Converter**: Calculates hash values (SHA-256, SHA-512, MD5) from any text input.
+*   **JSON Formatter**: A tool to format, validate, and pretty-print JSON strings, making them easy to read and debug.
