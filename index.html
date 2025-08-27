@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MD Converter</title>
+    <title>My Widgets</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/widgets.css">
     <script src="https://unpkg.com/heroicons@1.0.6/dist/heroicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.4/dist/purify.min.js"></script>
@@ -15,99 +16,15 @@
         <h2 class="text-2xl font-bold text-white mb-6">Tools</h2>
         <ul>
             <li class="mb-4"><a href="#weather-widget" class="nav-link active">Weather</a></li>
-            <li class="mb-4"><a href="#calculator-widget" class="nav-link">Calculator</a></li>
             <li class="mb-4"><a href="#md-converter-widget" class="nav-link">MD Converter</a></li>
-            <li class="mb-4"><a href="#pdf-converter-widget" class="nav-link">PDF Converter</a></li>
             <li class="mb-4"><a href="#hash-converter-widget" class="nav-link">Hash Converter</a></li>
+            <li class="mb-4"><a href="#json-formatter-widget" class="nav-link">JSON Formatter</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
-        <div id="weather-widget" class="widget active">
-            <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Weather</h1>
-                <div class="mb-8">
-                    <select id="location-select" class="location-selector border border-gray-300 rounded-md py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-gray-500">
-                        <option value="臺北市">台北</option>
-                        <option value="新北市">新北</option>
-                        <option value="桃園市">桃園</option>
-                        <option value="臺中市">台中</option>
-                        <option value="臺南市">台南</option>
-                        <option value="高雄市">高雄</option>
-                    </select>
-                </div>
-                <div id="weather-info" class="text-gray-800">
-                    <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                        <p>Initializing...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="calculator-widget" class="widget hidden">
-            <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Calculator</h1>
-                <p class="text-white">[Calculator UI will go here]</p>
-            </div>
-        </div>
-
-        <div id="md-converter-widget" class="widget hidden">
-            <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">MD Converter</h1>
-                <div class="md-converter-container">
-                    <textarea id="md-input" class="md-input" placeholder="Enter Markdown here..."></textarea>
-                    <div id="md-output" class="md-output"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="pdf-converter-widget" class="widget hidden">
-            <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">PDF to Excel</h1>
-                <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                    <form id="pdf-form">
-                        <label for="pdf-file-input" class="file-upload-area">
-                            <div class="file-upload-content">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V6a2 2 0 012-2h10a2 2 0 012 2v6a4 4 0 01-4 4H7z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4m11-14l-5 5-5-5"></path></svg>
-                                <p class="text-white">點擊或拖曳檔案到此處</p>
-                                <span id="pdf-file-name" class="text-sm text-gray-300 mt-1">尚未選擇檔案</span>
-                            </div>
-                            <input type="file" id="pdf-file-input" class="hidden" accept=".pdf">
-                        </label>
-                        <button type="submit" id="pdf-convert-btn" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-                            轉換並下載
-                        </button>
-                        <p id="pdf-status" class="text-sm text-gray-200 mt-2 h-4"></p>
-                        <p class="endpoint-info">Endpoint: <span id="endpoint-url"></span></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div id="hash-converter-widget" class="widget hidden">
-            <div class="container mx-auto p-4 text-center">
-                <h1 class="text-4xl font-bold text-white mb-4">Hash Converter</h1>
-                <div class="weather-card p-6 rounded-lg shadow-lg w-full max-w-sm mx-auto">
-                    <div class="mb-4">
-                        <label for="hash-algorithm" class="block text-white text-sm font-bold mb-2">Algorithm</label>
-                        <select id="hash-algorithm" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="SHA-256">SHA-256</option>
-                            <option value="SHA-512">SHA-512</option>
-                            <option value="MD5">MD5</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="plaintext-input" class="block text-white text-sm font-bold mb-2">Plaintext</label>
-                        <textarea id="plaintext-input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="hash-input" class="block text-white text-sm font-bold mb-2">Hash</label>
-                        <textarea id="hash-input" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4"></textarea>
-                    </div>
-                    <button id="to-hash-btn" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Convert</button>
-                    <p id="hash-status" class="text-sm text-gray-200 mt-2 h-4"></p>
-                </div>
-            </div>
+        <div id="widget-container">
+            <!-- Widgets will be loaded here dynamically -->
         </div>
     </main>
 
@@ -117,21 +34,17 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
             <span>Weather</span>
         </a>
-        <a href="#calculator-widget" class="bottom-nav-link">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4H5zM5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
-            <span>Calculator</span>
-        </a>
         <a href="#md-converter-widget" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
             <span>MD</span>
         </a>
-        <a href="#pdf-converter-widget" class="bottom-nav-link">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-            <span>PDF</span>
-        </a>
         <a href="#hash-converter-widget" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" /></svg>
             <span>Hash</span>
+        </a>
+        <a href="#json-formatter-widget" class="bottom-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l-4 4m0 0l-4 4m4-4H3" /></svg>
+            <span>JSON</span>
         </a>
         <button id="more-button" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" /></svg>
@@ -139,7 +52,10 @@
         </button>
     </nav>
 
-    <script src="script.js"></script>
-</body>
+    <script src="js/weather.js"></script>
+    <script src="js/md-converter.js"></script>
+    <script src="js/hash-converter.js"></script>
+    <script src="js/json-formatter.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

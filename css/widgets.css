@@ -1,0 +1,248 @@
+.weather-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.location-selector {
+    width: 100%;
+    max-width: 24rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65em auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 2.5rem; /* Make space for the arrow */
+}
+
+/* Ensure options have consistent styling */
+.location-selector option {
+    background-color: #2d3748; /* Darker background for options */
+    color: white;
+}
+
+.widget {
+    display: none;
+}
+
+.widget.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Form Elements General Styling */
+.weather-card select,
+.weather-card textarea,
+.weather-card button,
+.location-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.weather-card select:focus,
+.weather-card textarea:focus,
+.weather-card button:focus,
+.location-selector:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.weather-card textarea {
+    resize: vertical;
+}
+
+.weather-card button {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.weather-card button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Specific overrides for text color in inputs/textareas */
+.weather-card select,
+.weather-card textarea,
+.location-selector {
+    color: #e2e8f0; /* Light gray for text */
+}
+
+.weather-card select option,
+.location-selector option {
+    background-color: #2d3748; /* Darker background for options */
+    color: white;
+}
+
+/* Weather Card Text Color */
+.weather-card h2,
+.weather-card p {
+    color: white; /* Pure white for weather info text */
+}
+
+/* Hash Converter Widget Styles */
+#hash-algorithm,
+#plaintext-input,
+#hash-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#hash-algorithm:focus,
+#plaintext-input:focus,
+#hash-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* MD Converter Widget Styles */
+.md-converter-container {
+    display: flex;
+    height: 70vh;
+}
+
+.md-input, .md-output {
+    width: 50%;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 0.5rem;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.md-input {
+    resize: none;
+    margin-right: 1rem;
+}
+
+.md-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.md-output {
+    text-align: left;
+}
+
+.md-output h1, .md-output h2, .md-output h3, .md-output h4, .md-output h5, .md-output h6 {
+    color: white;
+    font-weight: bold;
+}
+
+.md-output h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.md-output h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.md-output p {
+    margin-bottom: 1em;
+}
+
+.md-output a {
+    color: #60a5fa; /* blue-400 */
+    text-decoration: underline;
+}
+
+.md-output code {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+}
+
+.md-output pre {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    border-radius: 0.5em;
+    overflow-x: auto;
+}
+
+.md-output blockquote {
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+    padding-left: 1em;
+    margin-left: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.md-output ul, .md-output ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+.md-output li {
+    margin-bottom: 0.5em;
+}
+
+/* JSON Formatter Widget Styles */
+.json-formatter-container {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+}
+
+.json-textarea {
+    width: 100%;
+    height: 40%; /* Input takes up 40% of the container height */
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 0.5rem;
+    resize: none;
+    font-family: monospace;
+}
+
+.json-textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.json-formatter-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.json-output-pre {
+    width: 100%;
+    height: 60%; /* Output takes up the remaining 60% */
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 0.5rem;
+    overflow: auto;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: monospace;
+}
