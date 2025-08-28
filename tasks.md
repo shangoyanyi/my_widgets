@@ -20,3 +20,6 @@
     - 將 `db.json` 存放於專案根目錄。
     - `my-json-server.typicode.com` 的線上服務會自動產生 API Endpoint，無需自行啟動後端伺服器。
 
+- **#5 [done] 優化 JSON Formatter - 快速載入 Mock API 資料**
+  - **功能描述**: 在「JSON 格式化與驗證器」小工具頁面中，新增一個下拉式選單。選單內應包含四個選項，分別對應 `my-json-server` 提供的 API 端點 (`/posts`, `/comments`, `/profile` 等)。當使用者選擇其中一個選項時，程式會自動發送請求到對應的 URL，並將回傳的 JSON 資料載入到文字區中，方便使用者直接進行格式化與驗證。
+
