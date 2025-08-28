@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'weather-widget': () => initWeatherWidget(),
         'md-converter-widget': () => initMdConverter(),
         'hash-converter-widget': () => initHashConverter(),
-        'json-formatter-widget': () => initJsonFormatter()
+        'json-formatter-widget': () => initJsonFormatter(),
+        'base64-converter-widget': () => initBase64Converter(),
+        'qr-code-generator-widget': () => initQrCodeGenerator()
     };
 
     const loadWidget = async (targetId) => {

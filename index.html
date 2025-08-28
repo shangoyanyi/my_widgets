@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/heroicons@1.0.6/dist/heroicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.4/dist/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body class="flex items-center justify-center min-h-screen">
     <nav class="sidebar">
@@ -19,6 +20,8 @@
             <li class="mb-4"><a href="#md-converter-widget" class="nav-link">MD Converter</a></li>
             <li class="mb-4"><a href="#hash-converter-widget" class="nav-link">Hash Converter</a></li>
             <li class="mb-4"><a href="#json-formatter-widget" class="nav-link">JSON Formatter</a></li>
+            <li class="mb-4"><a href="#base64-converter-widget" class="nav-link">Base64 Converter</a></li>
+            <li class="mb-4"><a href="#qr-code-generator-widget" class="nav-link">QR Code Generator</a></li>
         </ul>
     </nav>
 
@@ -42,9 +45,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" /></svg>
             <span>Hash</span>
         </a>
-        <a href="#json-formatter-widget" class="bottom-nav-link">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l-4 4m0 0l-4 4m4-4H3" /></svg>
-            <span>JSON</span>
+        <a href="#qr-code-generator-widget" class="bottom-nav-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+            <span>QR Code</span>
         </a>
         <button id="more-button" class="bottom-nav-link">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" /></svg>
@@ -56,6 +59,8 @@
     <script src="js/md-converter.js"></script>
     <script src="js/hash-converter.js"></script>
     <script src="js/json-formatter.js"></script>
+    <script src="js/base64-converter.js"></script>
+    <script src="js/qr-code-generator.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
