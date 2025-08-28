@@ -12,3 +12,11 @@
 
 - **#3 [todo] QR Code 產生器 (QR Code Generator)**
   - **功能描述**: 一個輸入框讓使用者輸入任何網址或文字，旁邊會即時生成對應的 QR Code 圖片，並提供下載按鈕。
+
+- **#4 [done] 建立 my-json-server mock API**
+  - **功能描述**: 建立一個 `my-json-server` 線上服務可讀取的資料來源，在專案內建立 `db.json`檔案後，`my-json-server.typicode.com` 會自動產生 mock API。使用者可以利用 `https://my-json-server.typicode.com/my_widgets/` 這個URL Endpoint透過http方法(GET, POST 等)進行REST API操作(無法修改 `db.json`)。
+  - **技術細節**:
+    - 產生 `db.json`，寫入模擬的部落格貼文的json內容。
+    - 將 `db.json` 存放於專案根目錄。
+    - `my-json-server.typicode.com` 的線上服務會自動產生 API Endpoint，無需自行啟動後端伺服器。
+
